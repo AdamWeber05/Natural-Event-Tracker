@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Natural Event Tracker</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <header>
+    <!-- Nav Bar; Always at top of screen -->
+    <div class="w3-top">
+      <div class="w3-bar w3-black" style="align-items: flex-start;" >
+        <!-- Side Hover Bar to access trackers -->
+        <div class="w3-dropdown-hover">
+          <a href="#eventSidebar" class="w3-bar-item w3-button"><i class="fa fa-bars"></i></a>
+          <div class="w3-dropdown-content w3-bar-block w3-card-4" id="nav">
+            <ul>
+              <li><a href="wildfires.html" class="w3-bar-item w3-button">Wildfires</a></li>
+              <li><a href="volcanoes.html" class="w3-bar-item w3-button">Volcanoes</a></li>
+              <li><a href="ice.html" class="w3-bar-item w3-button">Sea & Lake Ice</a></li>
+              <li><a href="snow.html" class="w3-bar-item w3-button">Snow Storms</a></li>
+              <li><a href="storms.html" class="w3-bar-item w3-button">Severe Storms</a></li>
+              <li><a href="floods.html" class="w3-bar-item w3-button">Floods</a></li>
+              <li><a href="landslides.html" class="w3-bar-item w3-button">Landslides</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Logo and Title -->
+        <div class="w3-display-middle" style="display: inline-flex;">
+          <h1 style="font-size: 20px;"><a href="index.html" id="title">Natural Events Tracker</a></h1>
+          <img src="images/NASA_logo.png" alt="NASA Logo" id="logo">
+        </div>
+        <!-- Navigation Header -->
+        <a href="stay_informed.html" class="w3-bar-item w3-button w3-right">Stay Informed</a>
+        <a href="resources.html" class="w3-bar-item w3-button w3-right">Resources</a>
+        <a href="about.html" class="w3-bar-item w3-button w3-right">About</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="w3-container">
+      <h1>About</h1>
+      <p>Through this site you are able to see a map view of multiple different natural event trackers.  See the below chart to view all available trackers as well as a live count of active events.</p>
+      <!-- Div that holds table -->
+      <div id="table">
+        <table>
+          <caption>EONET Trackers</caption>
+          <tr>
+            <th>Available Trackers</th>
+            <th>Total Active Events</th>
+          </tr>
+          <tr>
+            <td><a href="wildfires.html">Wildfires</a></td>
+            <td><span id="fire"></span></td>
+          </tr>
+          <tr>
+            <td><a href="volcanoes.html">Volcanoes</a></td>
+            <td><span id="vol"></span></td>
+          </tr>
+          <tr>
+            <td><a href="ice.html">Sea & Lake Ice</a></td>
+            <td><span id="ice"></span></td>
+          </tr>
+          <tr>
+            <td><a href="snow.html">Snow Storms</a></td>
+            <td><span id="snow"></span></td>
+          </tr>
+          <tr>
+            <td><a href="storms.html">Severe Storms</a></td>
+            <td><span id="storms"></span></td>
+          </tr>
+          <tr>
+            <td><a href="floods.html">Floods</a></td>
+            <td><span id="floods"></span></td>
+          </tr>
+          <tr>
+            <td><a href="landslides.html">Landslides</a></td>
+            <td><span id="slides"></span></td>
+          </tr>
+          <tr>
+            <td colspan="2">Total Active Events:&emsp;&nbsp;&nbsp;<span id="total"></span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </main>
+  <!-- Footer; Always at bottom of screen -->
+  <footer>
+    <p><small>All content &copy; 2021 Adam Weber</small></p>
+  </footer>
+  <script>
+    var fireCount = 0;
+    var volCount = 0;
+    var iceCount = 0;
+    var snowCount = 0;
+    var stormCount = 0;
+    var floodCount = 0;
+    var slideCount = 0;
+    var total = 0;
+
+    $( document ).ready(function() {
+      $.getJSON( "https://eonet.gsfc.nasa.gov/api/v3/events", {
+        status: "open"
+      })
+      .done(function( data ) {
+        $.each( data.events, function( key, event ) {
+          if(event.categories[0].id == 'wildfires'){
+            fireCount++;
+          }
+          else if(event.categories[0].id == 'volcanoes'){
+            volCount++;
+          }
+          else if(event.categories[0].id == 'seaLakeIce'){
+            iceCount++;
+          }
+          else if(event.categories[0].id == 'snow'){
+            snowCount++;
+          }
+          else if(event.categories[0].id == 'severeStorms'){
+            stormCount++;
+          }
+          else if(event.categories[0].id == 'floods'){
+            floodCount++;
+          }
+          else if(event.categories[0].id == 'landslides'){
+            slideCount++;
+          }
+          total = fireCount + volCount + iceCount + snowCount + stormCount + floodCount + slideCount;
+          document.getElementById("fire").innerHTML = fireCount;
+          document.getElementById("vol").innerHTML = volCount;
+          document.getElementById("ice").innerHTML = iceCount;
+          document.getElementById("snow").innerHTML = snowCount;
+          document.getElementById("storms").innerHTML = stormCount;
+          document.getElementById("floods").innerHTML = floodCount;
+          document.getElementById("slides").innerHTML = slideCount;
+          document.getElementById("total").innerHTML = total;          
+        });    
+      });
+    });
+  </script>
+</body>
+</html>
