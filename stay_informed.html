@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Natural Event Tracker</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+<body>
+  <header>
+    <!-- Nav Bar; Always at top of screen -->
+    <div class="w3-top">
+      <div class="w3-bar w3-black" style="align-items: flex-start;" >
+        <!-- Side Hover Bar to access trackers -->
+        <div class="w3-dropdown-hover">
+          <a href="#eventSidebar" class="w3-bar-item w3-button"><i class="fa fa-bars"></i></a>
+          <div class="w3-dropdown-content w3-bar-block w3-card-4" id="nav">
+            <ul>
+              <li><a href="wildfires.html" class="w3-bar-item w3-button">Wildfires</a></li>
+              <li><a href="volcanoes.html" class="w3-bar-item w3-button">Volcanoes</a></li>
+              <li><a href="ice.html" class="w3-bar-item w3-button">Sea & Lake Ice</a></li>
+              <li><a href="snow.html" class="w3-bar-item w3-button">Snow Storms</a></li>
+              <li><a href="storms.html" class="w3-bar-item w3-button">Severe Storms</a></li>
+              <li><a href="floods.html" class="w3-bar-item w3-button">Floods</a></li>
+              <li><a href="landslides.html" class="w3-bar-item w3-button">Landslides</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Logo and Title -->
+        <div class="w3-display-middle" style="display: inline-flex;">
+          <h1 style="font-size: 20px;"><a href="index.html" id="title">Natural Events Tracker</a></h1>
+            <img src="images/NASA_logo.png" alt="NASA Logo" id="logo">
+          </div>
+          <!-- Navigation Header -->
+          <a href="stay_informed.html" class="w3-bar-item w3-button w3-right">Stay Informed</a>
+          <a href="resources.html" class="w3-bar-item w3-button w3-right">Resources</a>
+          <a href="about.html" class="w3-bar-item w3-button w3-right">About</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="w3-container">
+        <h1>Stay Informed</h1>
+        <p>To get added to our notification service please enter your contact information below.  Please feel free to leave any comments in the final text box, we appreciate all the feedback we recieve! </p>
+      </div>
+      <form class="w3-container" action="/action_page.php" method="POST">
+        <h2>Sign-up to recieve notifications!</h2>
+        <div class="w3-section">      
+          <input class="w3-input" type="text" required>
+          <label>Name</label>
+        </div>
+        <div class="w3-section">      
+          <input class="w3-input" type="email" required>
+          <label>Email</label>
+        </div>
+        <div class="w3-section">      
+          <input class="w3-input" type="tel" required>
+          <label>Phone Number</label>
+        </div>
+        <div class="w3-row">
+          <div class="w3-half">
+            <label>Choose which trackers to recieve updates on:</label>
+            <br>
+            <input id="wildfires" class="w3-check" type="checkbox">
+            <label>Wildfires</label>
+            <br>
+            <input id="volcanoes" class="w3-check" type="checkbox">
+            <label>Volcanoes</label>
+            <br>
+            <input id="sealakeice" class="w3-check" type="checkbox">
+            <label>Sea & Lake Ice</label>
+            <br>
+            <input id="snowstorms" class="w3-check" type="checkbox">
+            <label>Snow Storms</label>
+            <br>
+            <input id="severestorms" class="w3-check" type="checkbox">
+            <label>Severe Storms</label>
+            <br>
+            <input id="floods" class="w3-check" type="checkbox">
+            <label>Floods</label>
+            <br>
+            <input id="landslides" class="w3-check" type="checkbox">
+            <label>Landslides</label>
+          </div>
+          <div class="w3-half">
+            <label for="comments">Other, details, requests, or comments?</label>
+            <br>
+            <textarea id="comments" name="Comments" cols="50" rows="9"></textarea>
+          </div>
+        </div>
+        <input type="submit" value="Get Notified">
+      </form>
+    </main>
+    <footer>
+      <p><small>All content &copy; 2021 Adam Weber</small></p>
+    </footer>
+  </body>
+</html>

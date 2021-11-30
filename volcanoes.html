@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volcano Tracker</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+ <header>
+  <!-- Nav Bar; Always at top of screen -->
+  <div class="w3-top">
+    <div class="w3-bar w3-black" style="align-items: flex-start;" >
+      <!-- Side Hover Bar to access trackers -->
+      <div class="w3-dropdown-hover">
+        <a href="#eventSidebar" class="w3-bar-item w3-button"><i class="fa fa-bars"></i></a>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4" id="nav">
+          <ul>
+            <li><a href="wildfires.html" class="w3-bar-item w3-button">Wildfires</a></li>
+            <li><a href="volcanoes.html" class="w3-bar-item w3-button">Volcanoes</a></li>
+            <li><a href="ice.html" class="w3-bar-item w3-button">Sea & Lake Ice</a></li>
+            <li><a href="snow.html" class="w3-bar-item w3-button">Snow Storms</a></li>
+            <li><a href="storms.html" class="w3-bar-item w3-button">Severe Storms</a></li>
+            <li><a href="floods.html" class="w3-bar-item w3-button">Floods</a></li>
+            <li><a href="landslides.html" class="w3-bar-item w3-button">Landslides</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Logo and Title -->
+      <div class="w3-display-middle" style="display: inline-flex;">
+        <h1 style="font-size: 20px;"><a href="index.html" id="title">Natural Events Tracker</a></h1>
+        <img src="images/NASA_logo.png" alt="NASA Logo" id="logo">
+      </div>
+      <!-- Navigation Header -->
+      <a href="stay_informed.html" class="w3-bar-item w3-button w3-right">Stay Informed</a>
+      <a href="resources.html" class="w3-bar-item w3-button w3-right">Resources</a>
+      <a href="about.html" class="w3-bar-item w3-button w3-right">About</a>
+    </div>
+  </div>
+</header>
+<main>
+<div id="map"></div>
+<script>
+  function initMap() {
+      // Map options
+      var options = {
+        zoom: 3,
+        center: {lat: 16.5676, lng:2.2315}
+      }
+      //New Map
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      //Get Eonet event info
+      $( document ).ready(function() {
+        $.getJSON( "https://eonet.gsfc.nasa.gov/api/v3/events", {
+          status: "open"
+        })
+        .done(function( data ) {
+          $.each( data.events, function( key, event ) {
+            if(event.categories[0].id == 'volcanoes') {
+              var markers = [
+              {
+                coords: {lat: event.geometry[0].coordinates[1], lng: event.geometry[0].coordinates[0]},
+                content: '<p><strong>' + event.title + '</strong></p>',
+                iconImage: 'https://img.icons8.com/emoji/40/000000/volcano-emoji.png'
+              }
+              ]
+              for(var i = 0; i < markers.length; i++) {
+                addMarker(markers[i]);
+              }
+            }
+          });    
+        });
+      });
+
+      //Add Marker Function
+      function addMarker(props){
+        var marker = new google.maps.Marker({
+          position: props.coords,
+          map:map,
+      });
+
+        //check for custom icon
+        if(props.iconImage){
+          //set icon image
+          marker.setIcon(props.iconImage);
+        }
+
+        //check for content
+        if(props.content){
+          var infoWindow = new google.maps.InfoWindow({
+            content: props.content
+          })
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          })
+        }
+      }
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_RsNyCftosjfEe5mFEY6XWSRt92jAb4U&callback=initMap"
+  async defer></script>
+</main>
+</body>
+</html>
