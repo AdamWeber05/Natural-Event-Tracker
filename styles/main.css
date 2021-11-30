@@ -7,7 +7,6 @@ body {
 h3 {
 	text-decoration: underline;
 }
-
 p {
 	font-size: 15px;
 }
@@ -71,6 +70,7 @@ footer {
   max-width: 1000px;
   position: relative;
   margin: auto;
+  margin-top: 50px;
 }
 
 /* Caption text */
